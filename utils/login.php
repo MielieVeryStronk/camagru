@@ -22,14 +22,13 @@ if (isset($_POST['submit']))
 		$stmt->bindParam(':username', $username);
 		$stmt->execute();
 		$result = $stmt->fetch();
-		var_dump($result);
 	
 		if (password_verify($_POST['pwd'], $result['user_pwd']))
 		{
 			$_SESSION['u_id'] = $result['user_id'];
 			$_SESSION['u_name'] = $result['user_name'];
 			$_SESSION['u_email'] = $result['user_email'];
-			header("Location: ../index.php?login=success");
+			header("Location: ../feed.php?login=success");
 			exit();
 		}
 		else

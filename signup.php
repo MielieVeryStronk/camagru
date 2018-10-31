@@ -6,7 +6,7 @@ include_once 'header.php';
 	<div class="main-wrapper">
 		<h2>Signup</h2>
 		<form class="signup-form" action="utils/signup.php" method="POST">
-			<input type="text" name="username" placeholder="username">
+			<input type="text" name="username" placeholder="username" required>
 			<?php
 			if ($_GET['signup'] == 'invalid')
 			{
@@ -17,18 +17,17 @@ include_once 'header.php';
 				echo '<p class="signup-err w3-text-theme">Username / email taken.</p>';
 			}
 			?>
-			<input type="text" name="email" placeholder="e-mail">
-			<?php
-			if ($_GET['signup'] == 'email')
-			{
-				echo '<p class="signup-err w3-text-theme">Email not valid.</p>';
-			}
-			?>
-			<input type="password" name="pwd" placeholder="password">
+			<input type="email" name="email" placeholder="e-mail" required>
+			<input type="password" name="pwd" placeholder="password" required>
+			<input type="password" name="pwdConfirm" placeholder="confirm password" required>
 			<?php
 			if ($_GET['signup'] == 'pwdinvalid')
 			{
 				echo '<p class="signup-err w3-text-theme">Password must be at least 8 characters long, contain one number and one uppercase letter.</p>';
+			}
+			elseif ($_GET['signup'] == 'pwdmatch')
+			{
+				echo '<p class="signup-err w3-text-theme">Passwords do not match.</p>';
 			}
 			elseif ($_GET['signup'] == 'success')
 			{

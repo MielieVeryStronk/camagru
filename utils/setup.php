@@ -24,7 +24,9 @@ $sql = "CREATE TABLE users (
 	user_id int(11) not null AUTO_INCREMENT PRIMARY KEY,
 	user_name varchar(256) not null,
 	user_email varchar(256) not null,
-	user_pwd varchar(256) not null
+	user_pwd varchar(256) not null,
+	user_valid bit DEFAULT 0,
+	user_verify_hash varchar(32) not null
 );";
 if (mysqli_query($conn, $sql))
 echo "Table USERS create success<br/>";
@@ -38,8 +40,7 @@ $sql = "CREATE TABLE img (
 	img_id int(11) not null AUTO_INCREMENT PRIMARY KEY,
 	img_name varchar(256) not null,
 	img_src longblob not null,
-	img_user varchar(256) not null,
-	img_time datetime
+	img_user varchar(256) not null
 );";
 if (mysqli_query($conn, $sql))
 echo "Table IMG create success<br/>";
@@ -70,8 +71,25 @@ mysqli_close($conn);
 
 $conn = mysqli_connect($dbServicename, $dbUsername, $dbPassword, $dbName);
 $hashedPwd = password_hash("admin123", PASSWORD_DEFAULT);
-$sql = "INSERT INTO users (user_name, user_email, user_pwd) VALUES ('admin','admin' ,'$hashedPwd');";
+$sql = "INSERT INTO users (user_name, user_email, user_pwd, user_valid, user_verify_hash) VALUES ('admin','admin' ,'$hashedPwd', 1, '1234');";
 if (mysqli_query($conn, $sql))
 	echo "ADMIN created<br/>";
+mysqli_close($conn);
+
+//add testing images
+
+$conn = mysqli_connect($dbServicename, $dbUsername, $dbPassword, $dbName);
+$blob = file_get_contents("../resources/testing/testimg1.jpg");
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg1.jpg', $blob, 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 1 added<br/>";
+$blob = file_get_contents('../resources/testing/testimg2.jpg');
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg2.jpg', $blob, 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 2 added<br/>";
+$blob = file_get_contents('../resources/testing/testimg3.jpeg');
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg3.jpeg', $blob, 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 3 added<br/>";
 mysqli_close($conn);
 ?>

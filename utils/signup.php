@@ -5,6 +5,8 @@ if (isset($_POST['submit']))
 	include_once 'database.php';
 
 	$username = $_POST['username'];
+	$pwd = $_POST['pwd'];
+	$pwdConfirm = $_POST['pwdConfirm'];
 	$hashedPwd = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
 	$email = $_POST['email'];
 	
@@ -42,6 +44,11 @@ if (isset($_POST['submit']))
 				header("Location: ../signup.php?signup=email");
 				exit();
 			}
+			if ($pwd != $pwdConfirm)
+			{
+				header("Location: ../signup.php?signup=pwdmatch");
+				exit();
+			}
 			else
 			{
 				$query = "SELECT * FROM `users` WHERE user_name=:username OR user_email=:email";
@@ -57,10 +64,20 @@ if (isset($_POST['submit']))
 				}
 				else
 				{
-					$query = "INSERT into `users` set user_name=?, user_email=?, user_pwd=?";
+					$verify_hash = md5(rand(1000, 9999));
+					$query = "INSERT into `users` SET user_name=?, user_email=?, user_pwd=?, user_verify_hash=?";
 					$stmt = $pdo->prepare($query);
-					$stmt->execute([$username, $email, $hashedPwd]);
+					$stmt->execute([$username, $email, $hashedPwd, $verify_hash]);
 					header("Location: ../signup.php?signup=success");
+					$subject = 'Camagru Signup Verification';
+					$message = '
+					Thanks for signing up!
+					Your account has been created.
+
+					Please click this link to activate your account:
+					http://localhost:8080/camagru/verify.php?email='.$email.'&hash='.$verify_hash;
+					$headers = 'From:noreply@camagru.enikel' . "\r\n";
+					mail($email, $subject, $message, $headers);
 					exit();
 				}
 			}
