@@ -42,7 +42,7 @@ session_start();
 		<div class="w3-col m12">
 		  <div class="w3-card w3-round w3-white">
 			<div class="w3-container w3-padding">
-			  <button id="myBtn" type="button" class="w3-button w3-theme" onclick="newPost()"><i class="fa fa-camera"></i>  New Post</button>
+			  <button id="myBtn" type="button" class="w3-button w3-theme"><i class="fa fa-camera"></i>  New Post</button>
 			</div>
 		  </div>
 		</div>
@@ -69,7 +69,7 @@ session_start();
 			$resultCmt = $stmtCmt->fetchAll();
 			?>
 				<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-					<img src="data:image/jpg;base64,<?php echo $imgData ?>" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+					<img id="avatar" src="data:image/jpg;base64,<?php echo $imgData ?>" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
 				<span class="w3-right w3-opacity">1 min</span>
 				<h4><?php echo $image['img_user'] ?></h4><br>
 				<hr class="w3-clear">
@@ -82,7 +82,7 @@ session_start();
 					<?php
 					foreach ($resultCmt as $comment)
 					{
-						echo "<div class='cmt-elem'>".date("j F", strtotime($comment['cmt_time']))." | <span class='cmt-user'>".$comment['cmt_user']."</span>  : ".$comment['cmt_comment']."</div>";
+						echo "<div class='cmt-elem'>".date("j M", strtotime($comment['cmt_time']))." | <span class='cmt-user'>".$comment['cmt_user']."</span>  : ".$comment['cmt_comment']."</div>";
 					}
 					?>
 				</div>
@@ -112,10 +112,14 @@ session_start();
   <div class="modal-content">
     <span class="close">&times;</span>
 	<h2>Add a new image</h2>
-	<img id="preview" src="resources/images/preview.jpeg" height="200" alt="Image preview...">
-	<input type="file" name="file" id="file" class="w3-hide" onchange="previewFile()"/>
-	<label class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
-	<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-camera"></i>  Webcam</button> 
+	<form action="utils/upload.php" method="POST" enctype="multipart/form-data">
+		<img class="preview" id="preview" src="resources/images/preview.jpeg" height="200" alt="Image preview...">
+		<video class="video" id="video" height="300" width="400"></video>
+		<input type="file" name="file" id="file" class="w3-hide" onchange="previewFile()"/>
+		<label class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
+		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
+		<button type="submit" name="submit" value="submit" id="confirmBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" disabled><i class="fa fa-check"></i>  Confirm</button> 
+	</form>
   </div>
 
 </div>
@@ -126,11 +130,10 @@ session_start();
 
 <!-- Footer -->
 <footer class="w3-container w3-theme-d3 w3-padding-16">
-  <h5>Footer</h5>
+  <h5>enikel</h5>
 </footer>
 
 <footer class="w3-container w3-theme-d5">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 </footer>
  
 <script>
@@ -173,32 +176,55 @@ btn.onclick = function() {
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
+	document.getElementById("video").style.display = "none";
+	document.getElementById("preview").style.display = "block";
     modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
+		document.getElementById("video").style.display = "none";
+		document.getElementById("preview").style.display = "block";
         modal.style.display = "none";
     }
 }
 
 function previewFile(){
-       var preview = document.getElementById('preview'); //selects the query named img
-       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-       var reader  = new FileReader();
+	var preview = document.getElementById('preview');
+	var file = document.querySelector('input[type=file]').files[0];
+	var reader  = new FileReader();
+	var confirm = document.getElementById('confirmBtn');
 
-       reader.onloadend = function () {
-           preview.src = reader.result;
-       }
+	reader.onloadend = function () {
+	preview.src = reader.result;
+	}
 
-       if (file) {
-           reader.readAsDataURL(file); //reads the data as a URL
-       } else {
-           preview.src = "";
-       }
-  }
+	if (file) {
+		confirm.disabled = false;
+		reader.readAsDataURL(file); //reads the data as a URL
+	} else {
+		preview.src = "resources/images/preview.jpeg";
+	}
+}
 
+function photoBooth() {
+	document.getElementById("preview").style.display = "none";
+	document.getElementById("video").style.display = "block";
+	var video = document.getElementById("video"),
+		vendorURL = window.URL || window.webkitURL;
+
+	navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+	navigator.getMedia({
+		video: true,
+		audio: false
+	}, function(stream) {
+		video.src = vendorURL.createObjectURL(stream);
+		video.play();
+	}, function(error) {
+		//error message
+	});
+}
 
 </script>
 

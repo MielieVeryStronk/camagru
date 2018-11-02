@@ -114,9 +114,18 @@ form.signup-form button:hover {
 .cmt-elem {
     margin-left: 10px;
     margin-top: 2px;
+    padding-left: 5px;
     background-color: rgba(211, 211, 211, 0.5);
 }
 
 .cmt-user {
     color: rgb(40, 122, 151);
+}
+
+.confirm-btn {
+    user-select: none;
+}
+
+.video {
+    display: none;
 }
