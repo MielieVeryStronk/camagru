@@ -19,5 +19,6 @@ if(isset($_POST["submit"])) {
         echo "File is not an image.";
         $uploadOk = 0;
     }
+    header("Location: ../feed.php");
 }
 ?>

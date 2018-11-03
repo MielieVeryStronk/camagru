@@ -38,7 +38,7 @@ session_start();
 	  </div>
 	  <br>
       
-      <div class="w3-row-padding fixed-elem" style="top:480px;left:402px">
+      <div class="w3-row-padding fixed-elem" style="top:480px">
 		<div class="w3-col m12">
 		  <div class="w3-card w3-round w3-white">
 			<div class="w3-container w3-padding">
@@ -59,6 +59,7 @@ session_start();
 		$stmtImg = $pdo->prepare($queryImg);
 		$stmtImg->execute();
 		$resultImg = $stmtImg->fetchAll();
+		rsort($resultImg);
 
 		foreach ($resultImg as $image)
 		{
@@ -70,13 +71,13 @@ session_start();
 			?>
 				<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 					<img id="avatar" src="data:image/jpg;base64,<?php echo $imgData ?>" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-				<span class="w3-right w3-opacity">1 min</span>
+				<span class="w3-right w3-opacity"><?php echo date("j M", strtotime($image['img_time'])) ?></span>
 				<h4><?php echo $image['img_user'] ?></h4><br>
 				<hr class="w3-clear">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<div class="w3-row-padding" style="margin:0 -16px">
 				<div class="w3-half">
-					<img src="data:image/jpg;base64,<?php echo $imgData ?>" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+					<img src="data:image/jpg;base64,<?php echo $imgData ?>" style="width:100%" alt="<?php echo $image['img_name'] ?>" class="w3-margin-bottom">
 				</div>
 				<div class="cmt-scroll">
 					<?php
@@ -116,9 +117,11 @@ session_start();
 		<img class="preview" id="preview" src="resources/images/preview.jpeg" height="200" alt="Image preview...">
 		<video class="video" id="video" height="300" width="400"></video>
 		<input type="file" name="file" id="file" class="w3-hide" onchange="previewFile()"/>
-		<label class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
+		<label id="fileLabel" class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
 		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
 		<button type="submit" name="submit" value="submit" id="confirmBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" disabled><i class="fa fa-check"></i>  Confirm</button> 
+		<button type="button" id="cancelBtn" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="cancelBooth()"><i class="fa fa-camera"></i>  Cancel</button> 
+		<!-- <button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button>  -->
 	</form>
   </div>
 
@@ -178,7 +181,9 @@ btn.onclick = function() {
 span.onclick = function() {
 	document.getElementById("video").style.display = "none";
 	document.getElementById("preview").style.display = "block";
+	document.getElementById("cancelBtn").style.display = "none";
     modal.style.display = "none";
+		cancelBooth();
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -186,7 +191,8 @@ window.onclick = function(event) {
     if (event.target == modal) {
 		document.getElementById("video").style.display = "none";
 		document.getElementById("preview").style.display = "block";
-        modal.style.display = "none";
+    modal.style.display = "none";
+		cancelBooth();
     }
 }
 
@@ -202,7 +208,7 @@ function previewFile(){
 
 	if (file) {
 		confirm.disabled = false;
-		reader.readAsDataURL(file); //reads the data as a URL
+		reader.readAsDataURL(file);
 	} else {
 		preview.src = "resources/images/preview.jpeg";
 	}
@@ -210,7 +216,12 @@ function previewFile(){
 
 function photoBooth() {
 	document.getElementById("preview").style.display = "none";
+	document.getElementById("webcamBtn").style.display = "none";
+	document.getElementById("confirmBtn").style.display = "none";
+	document.getElementById("file").style.display = "none";
+	document.getElementById("fileLabel").style.display = "none";
 	document.getElementById("video").style.display = "block";
+	document.getElementById("cancelBtn").style.display = "block";
 	var video = document.getElementById("video"),
 		vendorURL = window.URL || window.webkitURL;
 
@@ -219,11 +230,25 @@ function photoBooth() {
 		video: true,
 		audio: false
 	}, function(stream) {
-		video.src = vendorURL.createObjectURL(stream);
+		video.srcObject = stream;
 		video.play();
 	}, function(error) {
 		//error message
 	});
+}
+
+function cancelBooth() {
+	var video = document.getElementById("video");
+	var vidStream = video.srcObject;
+	document.getElementById("video").style.display = "none";
+	document.getElementById("preview").style.display = "block";
+	document.getElementById("cancelBtn").style.display = "none";
+	document.getElementById("webcamBtn").style.display = "inline-block";
+	document.getElementById("confirmBtn").style.display = "inline-block";
+	document.getElementById("file").style.display = "inline-block";
+	document.getElementById("fileLabel").style.display = "inline-block";
+	if (vidStream)
+		vidStream.getTracks()[0].stop();
 }
 
 </script>
