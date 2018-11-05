@@ -115,12 +115,15 @@ session_start();
 	<h2>Add a new image</h2>
 	<form action="utils/upload.php" method="POST" enctype="multipart/form-data">
 		<img class="preview" id="preview" src="resources/images/preview.jpeg" height="200" alt="Image preview...">
-		<video class="video" id="video" height="300" width="400"></video>
+		<input type="hidden" id="imageValue" name="imageValue" value=""/>
+		<video class="video reverse-img" id="video" width="320" height="240"></video>
+		<canvas class="display-none reverse-img" id="canvas" width="320" height="240"></canvas>
 		<input type="file" name="file" id="file" class="w3-hide" onchange="previewFile()"/>
 		<label id="fileLabel" class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
 		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
 		<button type="submit" name="submit" value="submit" id="confirmBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" disabled><i class="fa fa-check"></i>  Confirm</button> 
-		<button type="button" id="cancelBtn" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="cancelBooth()"><i class="fa fa-camera"></i>  Cancel</button> 
+		<button type="button" id="cancelBtn" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="cancelBooth()"><i class="fa fa-times"></i>  Back</button> 
+		<button type="button" id="snap" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="snapPhoto()"><i class="fa fa-camera"></i>  Take Picture</button> 
 		<!-- <button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button>  -->
 	</form>
   </div>
@@ -182,6 +185,7 @@ span.onclick = function() {
 	document.getElementById("video").style.display = "none";
 	document.getElementById("preview").style.display = "block";
 	document.getElementById("cancelBtn").style.display = "none";
+	document.getElementById("canvas").style.display = "none";
     modal.style.display = "none";
 		cancelBooth();
 }
@@ -191,6 +195,7 @@ window.onclick = function(event) {
     if (event.target == modal) {
 		document.getElementById("video").style.display = "none";
 		document.getElementById("preview").style.display = "block";
+		document.getElementById("canvas").style.display = "none";
     modal.style.display = "none";
 		cancelBooth();
     }
@@ -204,6 +209,7 @@ function previewFile(){
 
 	reader.onloadend = function () {
 	preview.src = reader.result;
+	document.getElementById('imageValue').value = reader.result;
 	}
 
 	if (file) {
@@ -214,14 +220,25 @@ function previewFile(){
 	}
 }
 
+function previewSnap(){
+	var preview = document.getElementById('preview');
+	var confirm = document.getElementById('confirmBtn');
+	confirm.disabled = false;
+	var canvas = document.getElementById('canvas');
+	preview.src = canvas.toDataURL("image/jpg");
+	document.getElementById('imageValue').value = canvas.toDataURL("image/jpg");
+}
+
 function photoBooth() {
 	document.getElementById("preview").style.display = "none";
 	document.getElementById("webcamBtn").style.display = "none";
 	document.getElementById("confirmBtn").style.display = "none";
 	document.getElementById("file").style.display = "none";
 	document.getElementById("fileLabel").style.display = "none";
-	document.getElementById("video").style.display = "block";
+	document.getElementById("video").style.display = "inline";
+	document.getElementById("canvas").style.display = "inline";
 	document.getElementById("cancelBtn").style.display = "block";
+	document.getElementById("snap").style.display = "block";
 	var video = document.getElementById("video"),
 		vendorURL = window.URL || window.webkitURL;
 
@@ -242,13 +259,25 @@ function cancelBooth() {
 	var vidStream = video.srcObject;
 	document.getElementById("video").style.display = "none";
 	document.getElementById("preview").style.display = "block";
-	document.getElementById("cancelBtn").style.display = "none";
+	document.getElementById("cancelBtn").style.display = "inline-block";
+	document.getElementById("confirmBtn").style.display = "block";
+	document.getElementById("canvas").style.display = "none";
+	document.getElementById("snap").style.display = "none";
 	document.getElementById("webcamBtn").style.display = "inline-block";
-	document.getElementById("confirmBtn").style.display = "inline-block";
 	document.getElementById("file").style.display = "inline-block";
 	document.getElementById("fileLabel").style.display = "inline-block";
 	if (vidStream)
 		vidStream.getTracks()[0].stop();
+}
+
+function snapPhoto() {
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	var video = document.getElementById('video');
+
+	// Trigger photo take
+	context.drawImage(video, 0, 0, 320, 240);
+	previewSnap();
 }
 
 </script>

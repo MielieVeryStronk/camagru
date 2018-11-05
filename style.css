@@ -128,11 +128,14 @@ form.signup-form button:hover {
 
 .video {
     display: none;
-    transform: rotateY(180deg);
-    -webkit-transform:rotateY(180deg);
-    -moz-transform:rotateY(180deg);
 }
 
 .display-none {
     display: none;
+}
+
+.reverse-img {
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg);
 }
