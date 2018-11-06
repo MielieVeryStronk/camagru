@@ -67,6 +67,19 @@ else
 	mysqli_close($conn);
 	return ;
 }
+$sql = "CREATE TABLE likes (
+	lke_id int(11) not null AUTO_INCREMENT PRIMARY KEY,
+	lke_user varchar(256) not null,
+	lke_img int(11) not null
+);";
+if (mysqli_query($conn, $sql))
+echo "Table LIKES create success<br/>";
+else
+{
+	echo "Table LIKES create failure<br/>" . $conn->error;
+	mysqli_close($conn);
+	return ;
+}
 mysqli_close($conn);
 
 //create admin profile;

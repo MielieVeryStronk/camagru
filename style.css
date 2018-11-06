@@ -139,3 +139,15 @@ form.signup-form button:hover {
     -webkit-transform:rotateY(180deg);
     -moz-transform:rotateY(180deg);
 }
+
+.comment-box {
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 10px;
+    width: 90%;
+    height: 30px;
+}
+
+.feed-buttons {
+    display: block;
+}

@@ -68,13 +68,17 @@ session_start();
 			$stmtCmt = $pdo->prepare($queryCmt);
 			$stmtCmt->execute([$image['img_id']]);
 			$resultCmt = $stmtCmt->fetchAll();
+			$queryLke = "SELECT * FROM likes WHERE lke_img=?";
+			$stmtLke = $pdo->prepare($queryLke);
+			$stmtLke->execute([$image['img_id']]);
+			$resultLke = $stmtLke->fetchAll();
 			?>
 				<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 					<img id="avatar" src="data:image/jpg;base64,<?php echo $imgData ?>" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
 				<span class="w3-right w3-opacity"><?php echo date("j M", strtotime($image['img_time'])) ?></span>
 				<h4><?php echo $image['img_user'] ?></h4><br>
 				<hr class="w3-clear">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> -->
 				<div class="w3-row-padding" style="margin:0 -16px">
 				<div class="w3-half">
 					<img src="data:image/jpg;base64,<?php echo $imgData ?>" style="width:100%" alt="<?php echo $image['img_name'] ?>" class="w3-margin-bottom">
@@ -88,9 +92,19 @@ session_start();
 					?>
 				</div>
 				</div>
-				<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-				<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-				</div>
+				<form action="utils/comment.php" method="POST">
+					<input type="hidden" name="id" value="<?php echo $image['img_id'] ?>">
+					<textarea name="comment" class="comment-box" placeholder="add comment" maxlength="140"></textarea>
+					<div class="feed-buttons">
+						<div class="w3-theme-d1 w3-margin-bottom"><?php echo $imageLikes ?></div>
+						<form action="like.php" method="POST">
+							<input type="hidden" name="id" value="<?php echo $image['img_id'] ?>">
+							<button type="submit" name="submit" value="submit" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+						</form>
+						<button type="submit" name="submit" value="submit" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+					</div>
+					</div>
+				</form>
 			<?php
 		}
 		?>
