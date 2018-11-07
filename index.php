@@ -20,7 +20,7 @@ session_start();
 
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px;height:100%">    
-<div class="w3-container w3-display-middle" style="width:40%"><img src="resources/images/landing.png" alt="logo" style="width:100%"></div>
+<div class="w3-container w3-display-middle go-to-feed" onclick="goToFeed()" style="width:40%"><img src="resources/images/landing.png" alt="logo" style="width:100%"></div>
 <!-- End Page Container -->
 </div>
 <br>
@@ -55,6 +55,10 @@ function openNav() {
 	} else { 
 		x.className = x.className.replace(" w3-show", "");
 	}
+}
+
+function goToFeed() {
+	window.location = "feed.php"
 }
 </script>
 

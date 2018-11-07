@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require("redirect.php");
 
 if (isset($_POST['submit']))
 {

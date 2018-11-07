@@ -17,11 +17,11 @@ if ($result)
     $query = "UPDATE users SET user_valid=1 WHERE user_email=?";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$email]);
-    echo '<div>Validation Successful! Your account has been activated, login to continue.</div>';
+    header("Location: index.php?verifysuccess");
 }
 else
 {
-    echo '<div>Validation failed, please try again.</div>';
+    header("Location: index.php?verifyfailure");
 }
 ?>
 </body>

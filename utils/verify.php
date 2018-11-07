@@ -13,10 +13,10 @@
         $query = "UPDATE `users` SET user_valid=? WHERE user_email=:email";
         $stmt = $pdo->prepare($query);
         $stmt->execute([1]);
-        echo '<div>SUCCESS</div>';
+        header("Location: ../index.php?verifysuccess");
     }
     else
     {
-        echo '<div>FAILED</div>';
+        header("Location: ../index.php?verifyfailure");
     }
 ?>

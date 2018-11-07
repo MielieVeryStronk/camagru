@@ -151,3 +151,48 @@ form.signup-form button:hover {
 .feed-buttons {
     display: block;
 }
+
+.display-inline-block {
+    display: inline-block;
+}
+
+.heart {
+    background-color: red;
+    height: 30px;
+    transform: rotate(-45deg);
+    width: 30px;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  background-color: red;
+  border-radius: 50%;
+  height: 30px;
+  position: absolute;
+  width: 30px;
+}
+
+.heart:before {
+    top: -15px;
+    left: 0;
+}
+
+.heart:after {
+    left: 15px;
+    top: 0;
+  }
+
+.like-number {
+    transform: rotate(45deg);
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.go-to-feed {
+    cursor: pointer;
+}

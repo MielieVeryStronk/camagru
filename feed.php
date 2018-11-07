@@ -71,7 +71,8 @@ session_start();
 			$queryLke = "SELECT * FROM likes WHERE lke_img=?";
 			$stmtLke = $pdo->prepare($queryLke);
 			$stmtLke->execute([$image['img_id']]);
-			$resultLke = $stmtLke->fetchAll();
+			$imageRes = $stmtLke->fetchAll();
+			$imageLikes = count($imageRes);
 			?>
 				<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 					<img id="avatar" src="data:image/jpg;base64,<?php echo $imgData ?>" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
@@ -95,16 +96,13 @@ session_start();
 				<form action="utils/comment.php" method="POST">
 					<input type="hidden" name="id" value="<?php echo $image['img_id'] ?>">
 					<textarea name="comment" class="comment-box" placeholder="add comment" maxlength="140"></textarea>
-					<div class="feed-buttons">
-						<div class="w3-theme-d1 w3-margin-bottom"><?php echo $imageLikes ?></div>
-						<form action="like.php" method="POST">
-							<input type="hidden" name="id" value="<?php echo $image['img_id'] ?>">
-							<button type="submit" name="submit" value="submit" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-						</form>
-						<button type="submit" name="submit" value="submit" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-					</div>
-					</div>
+					<button type="submit" name="submit" value="submit" class="w3-button w3-theme-d2 w3-margin-bottom display-inline-block"><i class="fa fa-comment"></i>  Comment</button> 
 				</form>
+				<form action="utils/like.php" method="POST">
+					<input type="hidden" name="id" value="<?php echo $image['img_id'] ?>">
+					<button type="submit" name="submit" value="submit" class="w3-button w3-hover-white"><div class="heart display-inline-block w3-margin"><div class="like-number"><?php echo $imageLikes ?></div></div></button>
+				</form>
+					</div>
 			<?php
 		}
 		?>

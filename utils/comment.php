@@ -1,6 +1,7 @@
 <?php
-require 'database.php';
 session_start();
+require("redirect.php");
+require 'database.php';
 
 if (strlen($_POST['comment']) > 0) {
     $query = "INSERT INTO comments (cmt_comment, cmt_user, cmt_img) VALUES (:comment, :user, :img)";

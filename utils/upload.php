@@ -1,5 +1,6 @@
 <?php
 session_start();
+require("redirect.php");
 
 $user = $_SESSION['u_name'];
 $target_file = addslashes(file_get_contents($_POST['imageValue']));
