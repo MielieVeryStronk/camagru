@@ -196,3 +196,8 @@ form.signup-form button:hover {
 .go-to-feed {
     cursor: pointer;
 }
+
+.sticker-item {
+    height: 80px;
+    width: 80px;
+}

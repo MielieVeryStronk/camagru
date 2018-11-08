@@ -126,20 +126,23 @@ session_start();
     <span class="close">&times;</span>
 	<h2>Add a new image</h2>
 	<form action="utils/upload.php" method="POST" enctype="multipart/form-data">
-		<img class="preview" id="preview" src="resources/images/preview.jpeg" height="200" alt="Image preview...">
+		<img class="preview" id="preview" src="resources/images/preview.jpeg" height="240" alt="Image preview...">
 		<input type="hidden" id="imageValue" name="imageValue" value=""/>
 		<video class="video reverse-img" id="video" width="320" height="240"></video>
 		<canvas class="display-none reverse-img" id="canvas" width="320" height="240"></canvas>
 		<input type="file" name="file" id="file" class="w3-hide" onchange="previewFile()"/>
 		<label id="fileLabel" class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
 		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
+		<button type="button" name="editBack" id="editBack" onclick="editCancel()" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn display-none"><i class="fa fa-times"></i>  Back</button> 
 		<button type="submit" name="submit" value="submit" id="confirmBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" disabled><i class="fa fa-check"></i>  Confirm</button> 
 		<button type="button" id="cancelBtn" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="cancelBooth()"><i class="fa fa-times"></i>  Back</button> 
 		<button type="button" id="snap" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="snapPhoto()"><i class="fa fa-camera"></i>  Take Picture</button> 
-		<!-- <button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button>  -->
+	</form>
+	<form id="editForm" class="" action="edit.php" method="POST">
+		<input type="hidden" id="editValue" name="imageValue" value=""/>
+		<button type="submit" name="edit" id="editBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" disabled><i class="fa fa-edit"></i>  Edit</button> 
 	</form>
   </div>
-
 </div>
 
 <!-- End Page Container -->
@@ -155,6 +158,11 @@ session_start();
 </footer>
  
 <script>
+
+var canvas = document.getElementById('canvas');
+var edit = document.getElementById('editBtn');
+var preview = document.getElementById('preview');
+
 // Accordion
 function myFunction(id) {
 	var x = document.getElementById(id);
@@ -214,7 +222,6 @@ window.onclick = function(event) {
 }
 
 function previewFile(){
-	var preview = document.getElementById('preview');
 	var file = document.querySelector('input[type=file]').files[0];
 	var reader  = new FileReader();
 	var confirm = document.getElementById('confirmBtn');
@@ -226,6 +233,7 @@ function previewFile(){
 
 	if (file) {
 		confirm.disabled = false;
+		edit.disabled = false;
 		reader.readAsDataURL(file);
 	} else {
 		preview.src = "resources/images/preview.jpeg";
@@ -236,15 +244,18 @@ function previewSnap(){
 	var preview = document.getElementById('preview');
 	var confirm = document.getElementById('confirmBtn');
 	confirm.disabled = false;
+	edit.disabled = false;
 	var canvas = document.getElementById('canvas');
 	preview.src = canvas.toDataURL("image/jpg");
 	document.getElementById('imageValue').value = canvas.toDataURL("image/jpg");
+	document.getElementById('editValue').value = canvas.toDataURL("image/jpg");
 }
 
 function photoBooth() {
 	document.getElementById("preview").style.display = "none";
 	document.getElementById("webcamBtn").style.display = "none";
 	document.getElementById("confirmBtn").style.display = "none";
+	document.getElementById("editBtn").style.display = "none";
 	document.getElementById("file").style.display = "none";
 	document.getElementById("fileLabel").style.display = "none";
 	document.getElementById("video").style.display = "inline";
@@ -275,6 +286,7 @@ function cancelBooth() {
 	document.getElementById("confirmBtn").style.display = "block";
 	document.getElementById("canvas").style.display = "none";
 	document.getElementById("snap").style.display = "none";
+	document.getElementById("editBtn").style.display = "block";
 	document.getElementById("webcamBtn").style.display = "inline-block";
 	document.getElementById("file").style.display = "inline-block";
 	document.getElementById("fileLabel").style.display = "inline-block";
@@ -291,7 +303,6 @@ function snapPhoto() {
 	context.drawImage(video, 0, 0, 320, 240);
 	previewSnap();
 }
-
 </script>
 
 </body>
