@@ -11,20 +11,14 @@ session_start();
 	require 'utils/database.php';
 ?>
 
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-</div>
+
 
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:150px">    
   <!-- The Grid -->
   <div class="w3-row">
 	<!-- Left Column -->
-	<div class="w3-col m3">
+	<div class="w3-col m3 w3-hide-small">
 	  <!-- Profile -->
 	  <div class="w3-card w3-round w3-white fixed-elem" style="top:160px;width:300px">
 		<div class="w3-container">
@@ -60,8 +54,15 @@ session_start();
 		$stmtImg->execute();
 		$resultImg = $stmtImg->fetchAll();
 		rsort($resultImg);
+		$totalImg = count($resultImg);
+		$pages = ceil($totalImg / 5);
+		if (isset($_GET['page'])) {
+			$pagination = $_GET['page'];
+		} else {
+			$pagination = 1;
+		}
 
-		foreach ($resultImg as $image)
+		foreach (array_slice($resultImg, ($pagination * 5) - 5, 5) as $image)
 		{
 			$imgData = base64_encode($image['img_src']);
 			$queryCmt = "SELECT * FROM comments WHERE cmt_img=?";
@@ -107,6 +108,18 @@ session_start();
 		}
 		?>
 	  
+	<!-- Paginator -->
+
+	<div class="pagination">
+	<a href="#">&laquo;</a>
+	<?php
+		for($x = 1; $x <= $pages; $x++) {
+		echo '<a href="feed.php?page='.$x.'">'.$x.'</a>';
+		}
+	?>
+	<a href="#">&raquo;</a>
+	</div>
+
 	<!-- End Middle Column -->
 	</div>
 	
@@ -144,7 +157,9 @@ session_start();
 	</form>
   </div>
 </div>
-
+<div class="w3-container w3-padding w3-hide-large">
+	<button id="myBtn" type="button" class="w3-button w3-theme"><i class="fa fa-camera"></i>  New Post</button>
+</div>
 <!-- End Page Container -->
 </div>
 <br>

@@ -23,7 +23,7 @@ if (isset($_POST['submit']))
 		$stmt->execute();
 		$result = $stmt->fetch();
 	
-		if (password_verify($_POST['pwd'], $result['user_pwd']) && $result['user_valid'] == 1)
+		if (password_verify($_POST['pwd'], $result['user_pwd']) && $result['user_valid'] == true)
 		{
 			$_SESSION['u_id'] = $result['user_id'];
 			$_SESSION['u_name'] = $result['user_name'];

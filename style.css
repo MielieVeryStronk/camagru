@@ -27,7 +27,7 @@ img.logo {
 }
 
 form.signup-form {
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
     padding-top: 30px;
 }
@@ -48,7 +48,7 @@ form.signup-form input {
 form.signup-form button {
     display: block;
     margin: 0 auto;
-    width: 30%;
+    width: 40%;
     height: 40px;
     border: none;
     background-color: #40798C;
@@ -200,4 +200,19 @@ form.signup-form button:hover {
 .sticker-item {
     height: 80px;
     width: 80px;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
 }

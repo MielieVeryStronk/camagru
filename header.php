@@ -34,3 +34,38 @@ else
 echo	'</div>
 		</div>';
 ?>
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large w3-top">
+  <a href="utils/logout.php" class="w3-bar-item w3-button w3-padding-large">Logout</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">Login</a>
+  <a href="signup.php" class="w3-bar-item w3-button w3-padding-large">Sign Up</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+</div>
+<script>
+// Accordion
+function myFunction(id) {
+	var x = document.getElementById(id);
+	if (x.className.indexOf("w3-show") == -1) {
+		x.className += " w3-show";
+		x.previousElementSibling.className += " w3-theme-d1";
+	} else { 
+		x.className = x.className.replace("w3-show", "");
+		x.previousElementSibling.className = 
+		x.previousElementSibling.className.replace(" w3-theme-d1", "");
+	}
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+	var x = document.getElementById("navDemo");
+	if (x.className.indexOf("w3-show") == -1) {
+		x.className += " w3-show";
+	} else { 
+		x.className = x.className.replace(" w3-show", "");
+	}
+}
+
+function goToFeed() {
+	window.location = "feed.php"
+}
+</script>

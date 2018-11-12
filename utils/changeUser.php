@@ -61,6 +61,6 @@ if (isset($_POST['submit']))
 }
 else
 {
-	header("Location: ../changePass.php");
+	header("Location: ../changeUser.php");
 	exit();
 }

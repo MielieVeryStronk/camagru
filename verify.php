@@ -14,9 +14,9 @@ $stmt->execute();
 $result = $stmt->fetch();
 if ($result)
 {   
-    $query = "UPDATE users SET user_valid=1 WHERE user_email=?";
+    $query = "UPDATE users SET user_valid=? WHERE user_email=?";
     $stmt = $pdo->prepare($query);
-    $stmt->execute([$email]);
+    $stmt->execute([true, $email]);
     header("Location: index.php?verifysuccess");
 }
 else
