@@ -122,6 +122,26 @@ $blob = addslashes(file_get_contents('../resources/testing/testimg3.jpeg'));
 $sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg3.jpeg', '$blob', 'admin');";
 if (mysqli_query($conn, $sql))
 	echo "test image 3 added<br/>";
+$blob = addslashes(file_get_contents('../resources/testing/testimg4.jpg'));
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg4.jpg', '$blob', 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 4 added<br/>";
+$blob = addslashes(file_get_contents('../resources/testing/testimg5.jpg'));
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg5.jpg', '$blob', 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 5 added<br/>";
+$blob = addslashes(file_get_contents('../resources/testing/testimg6.jpg'));
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg6.jpg', '$blob', 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 6 added<br/>";
+$blob = addslashes(file_get_contents('../resources/testing/testimg7.jpeg'));
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg7.jpeg', '$blob', 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 7 added<br/>";
+$blob = addslashes(file_get_contents('../resources/testing/testimg8.jpg'));
+$sql = "INSERT INTO img (img_name, img_src, img_user) VALUES ('testimg8.jpg', '$blob', 'admin');";
+if (mysqli_query($conn, $sql))
+	echo "test image 8 added<br/>";
 $sql = "INSERT INTO comments (cmt_comment, cmt_user, cmt_img) VALUES ('wow', 'admin', 1);";
 if (mysqli_query($conn, $sql))
 	echo "comment 1 added<br/>";

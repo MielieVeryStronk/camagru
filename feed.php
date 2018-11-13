@@ -245,10 +245,10 @@ function previewFile(){
 	var confirm = document.getElementById('confirmBtn');
 
 	reader.onloadend = function () {
-	preview.src = reader.result;
-	document.getElementById('imageValue').value = reader.result;
+	var res = reader.result;
+	preview.src = res;
+	document.getElementById('editValue').value = res;
 	}
-
 	if (file) {
 		confirm.disabled = false;
 		edit.disabled = false;
