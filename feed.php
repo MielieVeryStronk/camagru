@@ -25,9 +25,9 @@ session_start();
 		 <h4 class="w3-center">My Profile</h4>
 		 <p class="w3-center"><img src="resources/images/avatar.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
 		 <hr>
-		 <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-		 <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-		 <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+		 <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Coder, PHP</p>
+		 <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Johannesburg, ZA</p>
+		 <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> July 11, 1997</p>
 		</div>
 	  </div>
 	  <br>
@@ -76,11 +76,10 @@ session_start();
 			$imageLikes = count($imageRes);
 			?>
 				<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-					<img id="avatar" src="data:image/jpg;base64,<?php echo $imgData ?>" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+					<img id="avatar" src="resources/images/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
 				<span class="w3-right w3-opacity"><?php echo date("j M", strtotime($image['img_time'])) ?></span>
 				<h4><?php echo $image['img_user'] ?></h4><br>
 				<hr class="w3-clear">
-				<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> -->
 				<div class="w3-row-padding" style="margin:0 -16px">
 				<div class="w3-half">
 					<img src="data:image/jpg;base64,<?php echo $imgData ?>" style="width:100%" alt="<?php echo $image['img_name'] ?>" class="w3-margin-bottom">
@@ -142,7 +141,7 @@ session_start();
 		<img class="preview" id="preview" src="resources/images/preview.jpeg" height="240" alt="Image preview...">
 		<input type="hidden" id="imageValue" name="imageValue" value=""/>
 		<video class="video reverse-img" id="video" width="320" height="240"></video>
-		<canvas class="display-none reverse-img" id="canvas" width="320" height="240"></canvas>
+		<canvas class="display-none reverse-img canvas-snap" id="canvas" width="320" height="240"></canvas>
 		<input type="file" name="file" id="file" class="w3-hide" onchange="previewFile()"/>
 		<label id="fileLabel" class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
 		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
@@ -158,7 +157,7 @@ session_start();
   </div>
 </div>
 <div class="w3-container w3-padding w3-hide-large">
-	<button id="myBtn" type="button" class="w3-button w3-theme"><i class="fa fa-camera"></i>  New Post</button>
+	<button id="myBtnMobile" type="button" class="w3-button w3-theme"><i class="fa fa-camera"></i>  New Post</button>
 </div>
 <!-- End Page Container -->
 </div>
@@ -205,7 +204,11 @@ function openNav() {
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+if (window.innerWidth > 540) { 
+	var btn = document.getElementById("myBtn");
+} else {
+	var btn = document.getElementById("myBtnMobile");
+}
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];

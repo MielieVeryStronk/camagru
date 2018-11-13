@@ -9,8 +9,8 @@ if (!isset($_SESSION['u_name'])) {
 		echo '<a href="signup.php" class="w3-bar-item w3-button w3-margin w3-hide-small w3-right w3-padding-small w3-hover-white" title="Sign Up">Sign Up</a>
 		<form action="utils/login.php" method="POST">
 		<input type="submit" class="w3-bar-item w3-button w3-margin w3-hide-small w3-right w3-padding-small w3-hover-white" title="login" value="Login" name="submit">
-		<input type="password" class="w3-bar-item w3-margin w3-right w3-border w3-padding-small" title="password" value="" name="pwd" placeholder="Password" tabindex="2">
-		<input type="text" class="w3-bar-item w3-margin w3-right w3-border w3-padding-small" title="username" value="" name="username" placeholder="Username" tabindex="1">
+		<input type="password" class="w3-bar-item w3-margin w3-right w3-border w3-hide-small w3-padding-small" title="password" value="" name="pwd" placeholder="Password" tabindex="2">
+		<input type="text" class="w3-bar-item w3-margin w3-right w3-border w3-hide-small w3-padding-small" title="username" value="" name="username" placeholder="Username" tabindex="1">
 		</form>
 		<a href="forgotPass.php" class="w3-bar-item w3-button w3-margin w3-hide-small w3-right w3-padding-small w3-hover-white" title="Sign Up">Forgot Password?</a>';
 }
@@ -24,10 +24,10 @@ else
 		echo '</a><div class="w3-dropdown-hover w3-hide-small w3-right">
         <button class="w3-button w3-padding-small fa fa-user cam-usr-btn" title="Account Settings"></button>
         <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-            <a href="#" class="w3-bar-item w3-button">Change Password</a>
-            <a href="#" class="w3-bar-item w3-button">Change Username</a>
-            <a href="#" class="w3-bar-item w3-button">Change e-mail</a>
-            <a href="#" class="w3-bar-item w3-button">Notification Settings</a>
+            <a href="changePass.php" class="w3-bar-item w3-button">Change Password</a>
+            <a href="changeUser.php" class="w3-bar-item w3-button">Change Username</a>
+            <a href="changeEmail.php" class="w3-bar-item w3-button">Change e-mail</a>
+            <a href="notifications.php" class="w3-bar-item w3-button">Notification Settings</a>
         </div>
     </div>';
 }
@@ -35,11 +35,14 @@ echo	'</div>
 		</div>';
 ?>
 <!-- Navbar on small screens -->
-<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large w3-top">
-  <a href="utils/logout.php" class="w3-bar-item w3-button w3-padding-large">Logout</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Login</a>
-  <a href="signup.php" class="w3-bar-item w3-button w3-padding-large">Sign Up</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large nav-mobile">
+<?php if (!isset($_SESSION['u_name'])) {?>
+	<a href="loginMobile.php" class="w3-bar-item w3-button w3-padding-large">Login</a>
+	<a href="signup.php" class="w3-bar-item w3-button w3-padding-large">Sign Up</a>
+<?php } else {?>
+	<a href="utils/logout.php" class="w3-bar-item w3-button w3-padding-large">Logout</a>
+	<a href="account.php" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+<?php }?>
 </div>
 <script>
 // Accordion
