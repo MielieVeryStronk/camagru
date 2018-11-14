@@ -2,6 +2,6 @@
 session_start();
 if (!isset($_SESSION['u_name']))
 {
-    header("Location: index.php");
+    header("Location: http://localhost:8080/camagru/index.php");
 }
 ?>

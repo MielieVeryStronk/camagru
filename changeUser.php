@@ -25,7 +25,7 @@ include_once 'header.php';
 			}
 			elseif ($_GET['change'] == 'success')
 			{
-				echo '<p class="signup-err w3-text-theme">Username changed successfully.</p>';
+				echo '<p class="signup-err w3-text-theme">Username changed successfully, username will change on next login.</p>';
 			}
 			?>
 			<button type="submit" name="submit">Change Username</button>

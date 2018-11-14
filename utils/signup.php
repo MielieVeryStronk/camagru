@@ -75,7 +75,7 @@ if (isset($_POST['submit']))
 					Your account has been created.
 
 					Please click this link to activate your account:
-					http://localhost:8080/camagru/verify.php?email='.$email.'&hash='.$verify_hash;
+					http://localhost:8080/camagru/utils/verify.php?email='.$email.'&hash='.$verify_hash;
 					$headers = 'From:noreply@camagru.enikel' . "\r\n";
 					mail($email, $subject, $message, $headers);
 					exit();

@@ -13,7 +13,7 @@ include_once 'header.php';
             <?php
 			if ($_GET['change'] == 'pwdinvalid')
 			{
-				echo '<p class="signup-err w3-text-theme">Password must be at least 8 characters long, contain one number and one uppercase letter.</p>';
+				echo '<p class="signup-err w3-text-theme">Password must be at least 8 characters long and contain at least one number.</p>';
 			}
 			elseif ($_GET['change'] == 'oldinvalid')
 			{

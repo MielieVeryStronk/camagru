@@ -25,7 +25,7 @@ include_once 'header.php';
 			}
 			elseif ($_GET['change'] == 'success')
 			{
-				echo '<p class="signup-err w3-text-theme">Email changed successfully, please verify your account.</p>';
+				echo '<p class="signup-err w3-text-theme">Email changed successfully, please verify your account again.</p>';
 			}
 			?>
 			<button type="submit" name="submit">Change Email</button>

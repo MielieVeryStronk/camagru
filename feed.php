@@ -110,13 +110,11 @@ session_start();
 	<!-- Paginator -->
 
 	<div class="pagination">
-	<a href="#">&laquo;</a>
 	<?php
 		for($x = 1; $x <= $pages; $x++) {
 		echo '<a href="feed.php?page='.$x.'">'.$x.'</a>';
 		}
 	?>
-	<a href="#">&raquo;</a>
 	</div>
 
 	<!-- End Middle Column -->
@@ -132,8 +130,6 @@ session_start();
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
-
-  <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
 	<h2>Add a new image</h2>
@@ -146,7 +142,6 @@ session_start();
 		<label id="fileLabel" class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
 		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
 		<button type="button" name="editBack" id="editBack" onclick="editCancel()" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn display-none"><i class="fa fa-times"></i>  Back</button> 
-		<button type="submit" name="submit" value="submit" id="confirmBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" disabled><i class="fa fa-check"></i>  Confirm</button> 
 		<button type="button" id="cancelBtn" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="cancelBooth()"><i class="fa fa-times"></i>  Back</button> 
 		<button type="button" id="snap" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="snapPhoto()"><i class="fa fa-camera"></i>  Take Picture</button> 
 	</form>
@@ -241,16 +236,17 @@ window.onclick = function(event) {
 
 function previewFile(){
 	var file = document.querySelector('input[type=file]').files[0];
-	var reader  = new FileReader();
-	var confirm = document.getElementById('confirmBtn');
+	var reader  = new FileReader();	
 
 	reader.onloadend = function () {
 	var res = reader.result;
 	preview.src = res;
+	preview.onerror = function() {
+		location.reload();
+	}
 	document.getElementById('editValue').value = res;
 	}
 	if (file) {
-		confirm.disabled = false;
 		edit.disabled = false;
 		reader.readAsDataURL(file);
 	} else {
@@ -260,8 +256,6 @@ function previewFile(){
 
 function previewSnap(){
 	var preview = document.getElementById('preview');
-	var confirm = document.getElementById('confirmBtn');
-	confirm.disabled = false;
 	edit.disabled = false;
 	var canvas = document.getElementById('canvas');
 	preview.src = canvas.toDataURL("image/jpg");
@@ -272,7 +266,6 @@ function previewSnap(){
 function photoBooth() {
 	document.getElementById("preview").style.display = "none";
 	document.getElementById("webcamBtn").style.display = "none";
-	document.getElementById("confirmBtn").style.display = "none";
 	document.getElementById("editBtn").style.display = "none";
 	document.getElementById("file").style.display = "none";
 	document.getElementById("fileLabel").style.display = "none";
@@ -300,8 +293,7 @@ function cancelBooth() {
 	var vidStream = video.srcObject;
 	document.getElementById("video").style.display = "none";
 	document.getElementById("preview").style.display = "block";
-	document.getElementById("cancelBtn").style.display = "inline-block";
-	document.getElementById("confirmBtn").style.display = "block";
+	document.getElementById("cancelBtn").style.display = "none";
 	document.getElementById("canvas").style.display = "none";
 	document.getElementById("snap").style.display = "none";
 	document.getElementById("editBtn").style.display = "block";

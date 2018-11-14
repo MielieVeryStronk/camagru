@@ -4,7 +4,7 @@ require("redirect.php");
 
 $user = $_SESSION['u_name'];
 $target_file = addslashes(file_get_contents($_POST['imageValue']));
-$filename = "name"; //rand("abcdefg123456", "abcdefg123456");
+$filename = $user;
 require('database.php');
 $query = "DELETE FROM edit;";
 $stmt = $pdo->prepare($query);

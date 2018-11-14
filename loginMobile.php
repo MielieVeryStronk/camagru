@@ -1,3 +1,4 @@
+<title>Login</title>
 <?php
 include_once 'stylesheets.php';
 include_once 'header.php';

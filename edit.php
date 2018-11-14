@@ -47,8 +47,10 @@ if (isset($_POST['imageValue']) && !isset($_POST['notUpload']))
         </form>
         <form action="utils/upload.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="baseImageTwo" name="imageValue" value=""/>
+        <?php if ($_GET['sticker'] > 0) { ?>
 		    <button type="submit" name="submit" value="submit" id="confirmBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn"><i class="fa fa-check"></i>  Confirm</button> 
-	    </form>
+        <?php } ?>
+        </form>
         </div>
         <?php
             foreach($result as $edit)
