@@ -18,7 +18,7 @@ session_start();
   <!-- The Grid -->
   <div class="w3-row">
 	<!-- Left Column -->
-	<div class="w3-col m3 w3-hide-small">
+	<div class="w3-col m3 w3-hide-small w3-hide-medium">
 	  <!-- Profile -->
 	  <div class="w3-card w3-round w3-white fixed-elem" style="top:160px;width:300px">
 		<div class="w3-container">
