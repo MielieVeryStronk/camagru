@@ -237,6 +237,10 @@ form.signup-form button:hover {
     height: 240px;
 }
 
+.new-post {
+    margin-top: -60px;
+}
+
 @media screen and (max-width: 540px) {
     .go-to-feed {
         width: 100%;

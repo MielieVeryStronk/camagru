@@ -16,11 +16,11 @@ if ($result)
     $query = "UPDATE users SET user_valid=? WHERE user_email=?";
     $stmt = $pdo->prepare($query);
     $stmt->execute([true, $email]);
-    header("Location: ../index.php?verifysuccess");
+    header("Location: ../index.php?verify=success");
 }
 else
 {
-    header("Location: ../index.php?verifyfailure");
+    header("Location: ../index.php?verify=failure");
 }
 ?>
 </body>

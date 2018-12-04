@@ -15,6 +15,10 @@ session_start();
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px;height:100%">    
 <div class="w3-container w3-display-middle go-to-feed" onclick="goToFeed()"><img src="resources/images/landing.png" alt="logo" style="width:100%"></div>
+<?php
+if ($_GET['verify'] == "success") { ?>
+<div class="w3-container w3-color-white go-to-feed" style="margin-left:auto;margin-right:auto;" onclick="goToFeed()"><h3>Verification Succesful, Login To Continue</h3></div>
+<?php } ?>
 <!-- End Page Container -->
 </div>
 <br>

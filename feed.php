@@ -22,19 +22,28 @@ session_start();
 	  <!-- Profile -->
 	  <div class="w3-card w3-round w3-white fixed-elem" style="top:160px;width:300px">
 		<div class="w3-container">
-		 <h4 class="w3-center">My Profile</h4>
+		 <h4 class="w3-center"><?php if (isset($_SESSION['u_name'])) {
+			 echo $_SESSION['u_name'];
+			 } else {
+				 echo "Guest"; } ?></h4>
 		 <p class="w3-center"><img src="resources/images/avatar.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
 		 <hr>
-		 <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Coder, PHP</p>
-		 <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Johannesburg, ZA</p>
-		 <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> July 11, 1997</p>
+		 <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> Member Since: <?php if (isset($_SESSION['u_name'])) {
+			 $query = 'SELECT * FROM users WHERE user_name=?';
+			 $stmt = $pdo->prepare($query);
+			 $stmt->execute([$_SESSION['u_name']]);
+			 $result = $stmt->fetch();
+			 echo date("m, Y", ($result['user_time'])); 
+		 } else {
+			 echo " ";
+		 }?></p>
 		</div>
 	  </div>
 	  <br>
       
       <div class="w3-row-padding fixed-elem" style="top:480px">
 		<div class="w3-col m12">
-		  <div class="w3-card w3-round w3-white">
+		  <div class="w3-card w3-round w3-white new-post">
 			<div class="w3-container w3-padding">
 			  <button id="myBtn" type="button" class="w3-button w3-theme"><i class="fa fa-camera"></i>  New Post</button>
 			</div>
