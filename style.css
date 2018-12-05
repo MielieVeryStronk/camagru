@@ -125,6 +125,7 @@ form.signup-form button:hover {
 
 .confirm-btn {
     user-select: none;
+    display: inline-block;
 }
 
 .video {

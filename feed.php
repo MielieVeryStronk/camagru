@@ -33,7 +33,7 @@ session_start();
 			 $stmt = $pdo->prepare($query);
 			 $stmt->execute([$_SESSION['u_name']]);
 			 $result = $stmt->fetch();
-			 echo date("m, Y", ($result['user_time'])); 
+			 echo date("M, Y", ($result['user_time'])); 
 		 } else {
 			 echo " ";
 		 }?></p>
@@ -148,8 +148,8 @@ session_start();
 		<video class="video reverse-img" id="video" width="320" height="240"></video>
 		<canvas class="display-none reverse-img canvas-snap" id="canvas" width="320" height="240"></canvas>
 		<input type="file" name="file" id="file" class="w3-hide" onchange="previewFile()"/>
-		<label id="fileLabel" class="w3-button w3-theme-d2 w3-margin-bottom" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
-		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
+		<label id="fileLabel" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" for="file"><i class="fa fa-upload"></i>  Choose a file</label>
+		<button type="button" id="webcamBtn" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn" onclick="photoBooth()"><i class="fa fa-camera"></i>  Webcam</button> 
 		<button type="button" name="editBack" id="editBack" onclick="editCancel()" class="w3-button w3-theme-d2 w3-margin-bottom confirm-btn display-none"><i class="fa fa-times"></i>  Back</button> 
 		<button type="button" id="cancelBtn" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="cancelBooth()"><i class="fa fa-times"></i>  Back</button> 
 		<button type="button" id="snap" class="w3-button w3-theme-d2 w3-margin-bottom display-none" onclick="snapPhoto()"><i class="fa fa-camera"></i>  Take Picture</button> 
