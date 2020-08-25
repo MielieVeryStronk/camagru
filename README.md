@@ -1,4 +1,4 @@
-# camagru
+# Camagru
  A small web application allowing you to do basic photo editing and posting using your webcam and some predefined images.
 
 Created using:
@@ -10,31 +10,18 @@ Created using:
 
 ## Requirements
 
-- Have LAMP installed.
-- Clone repository to C:\lamp\htdocs
+- Have [MAMP](https://bitnami.com/stack/lamp/installer) installed.
+- JavaScript enabled browser.
  
-## Installation
+## Linux Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+1. Clone the repo to ~/lamp/apache2/htdocs
+2. Launch the bitnami LAMP stack, and start the apache server and the MySQL DB.
+3. Navigate to [http://localhost:8080/camagru](http://localhost:8080/camagru) OR to the appropriate port on your machine.
+4. Navigate to
 
-```bash
-pip install foobar
-```
-
-## Usage
-
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
-```
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+## State of project
+Project is closed. There will be no more updates.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
