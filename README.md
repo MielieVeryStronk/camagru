@@ -17,8 +17,9 @@ Created using:
 
 1. Clone the repo to ~/lamp/apache2/htdocs
 2. Launch the bitnami LAMP stack, and start the apache server and the MySQL DB.
-3. Navigate to [http://localhost:8080/camagru](http://localhost:8080/camagru) OR to the appropriate port on your machine.
-4. Navigate to
+3. Navigate to [setup.php](http://localhost:8080/camagru/setup.php) OR to the appropriate port on your machine.
+ - This should create and seed the database for you.
+4. Now you can go to the [home page](http://localhost:8080/camagru) and continue from there!
 
 ## State of project
 Project is closed. There will be no more updates.
